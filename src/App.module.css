@@ -7,3 +7,7 @@
   margin: 0 auto;
   min-height: 75vh;
 }
+
+.result {
+  background-color: white !important;
+}
