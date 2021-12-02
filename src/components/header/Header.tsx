@@ -2,10 +2,20 @@ import React from 'react'
 import logo from '../../assets/logo.svg'
 import { Menu, Dropdown, Input, Layout, Typography, Button } from 'antd'
 import { GlobalOutlined } from '@ant-design/icons'
+import {
+  useHistory,
+  useLocation,
+  useParams,
+  useRouteMatch,
+} from 'react-router-dom'
 
 import styles from './Header.module.css'
 
 export const Header: React.FC = () => {
+  const history = useHistory()
+  const location = useLocation()
+  const params = useParams()
+  const match = useRouteMatch()
   return (
     <div className={styles['app-header']}>
       {/* top-header */}
