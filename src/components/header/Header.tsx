@@ -8,6 +8,13 @@ import {
   useParams,
   useRouteMatch,
 } from 'react-router-dom'
+import { useSelector } from '../../redux/hooks'
+import { useDispatch } from 'react-redux'
+import {
+  LanguageActionTypes,
+  addLanguageActionCreator,
+  changeLanguageActionCreator,
+} from '../../redux/language/languageActions'
 
 import styles from './Header.module.css'
 
@@ -16,6 +23,20 @@ export const Header: React.FC = () => {
   const location = useLocation()
   const params = useParams()
   const match = useRouteMatch()
+  const language = useSelector((state) => state.language)
+  const languageList = useSelector((state) => state.languageList)
+  const dispatch = useDispatch()
+
+  const menuClickHandler = (e) => {
+    console.log(e)
+    if (e.key === 'new') {
+      // 处理新语言添加action
+      dispatch(addLanguageActionCreator('新语言', 'new_lang'))
+    } else {
+      dispatch(changeLanguageActionCreator(e.key))
+    }
+  }
+
   return (
     <div className={styles['app-header']}>
       {/* top-header */}
@@ -25,14 +46,16 @@ export const Header: React.FC = () => {
           <Dropdown.Button
             style={{ marginLeft: 15 }}
             overlay={
-              <Menu>
-                <Menu.Item>中文</Menu.Item>
-                <Menu.Item>ENGLISH</Menu.Item>
+              <Menu onClick={menuClickHandler}>
+                {languageList.map((l) => {
+                  return <Menu.Item key={l.code}>{l.name}</Menu.Item>
+                })}
+                <Menu.Item key={'new'}>添加新语言</Menu.Item>
               </Menu>
             }
             icon={<GlobalOutlined />}
           >
-            语言
+            {language === 'zh' ? '中文' : 'English'}
           </Dropdown.Button>
           <Button.Group className={styles['button-group']}>
             <Button onClick={() => history.push('register')}>注册</Button>
@@ -56,7 +79,6 @@ export const Header: React.FC = () => {
         <Menu.Item key={1}>旅游首页</Menu.Item>
         <Menu.Item key={2}>周末游</Menu.Item>
         <Menu.Item key={3}>旅游首页</Menu.Item>
-        <Menu.Item key={3}>跟团游</Menu.Item>
         <Menu.Item key="4"> 自由行 </Menu.Item>
         <Menu.Item key="5"> 私家团 </Menu.Item>
         <Menu.Item key="6"> 邮轮 </Menu.Item>
