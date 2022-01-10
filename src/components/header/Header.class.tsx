@@ -16,8 +16,8 @@ import styles from './Header.module.css'
 
 const mapStateToProps = (state: RootState) => {
   return {
-    language: state.language,
-    languageList: state.languageList,
+    language: state.language.language,
+    languageList: state.language.languageList,
   }
 }
 
@@ -43,8 +43,8 @@ class HeaderComponent extends React.Component<PropsType> {
   handleStoreChange = () => {
     const storeState = store.getState()
     this.setState({
-      language: storeState.language,
-      languageList: storeState.languageList,
+      language: storeState.language.language,
+      languageList: storeState.language.languageList,
     })
   }
 
