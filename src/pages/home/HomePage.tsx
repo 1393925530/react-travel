@@ -16,6 +16,7 @@ import {
   fetchRecomendProductsStartActionCreator,
   fetchRecomendProductsSuccessActionCreator,
   fetchRecomendProductsFailActionCreator,
+  giveMeDataActionCreator,
 } from '../../redux/recommendProducts/recommendProductsActions'
 
 import sideImage from '../../assets/images/sider_2019_12-09.png'
@@ -33,14 +34,8 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchStart: () => {
-      dispatch(fetchRecomendProductsStartActionCreator())
-    },
-    fetchSuccess: (data) => {
-      dispatch(fetchRecomendProductsSuccessActionCreator(data))
-    },
-    fetchFail: (error) => {
-      dispatch(fetchRecomendProductsFailActionCreator(error))
+    giveMeData: () => {
+      dispatch(giveMeDataActionCreator())
     },
   }
 }
@@ -50,16 +45,8 @@ type PropsType = WithTranslation &
   ReturnType<typeof mapDispatchToProps>
 
 class HomePageComponent extends React.Component<PropsType> {
-  async componentDidMount() {
-    this.props.fetchStart()
-    try {
-      const { data } = await axios.get(
-        ` http://192.168.120.194:7300/mock/61d79dc72c7cf895bc0c49e1/productCollections`
-      )
-      this.props.fetchSuccess(data.data)
-    } catch (error: any) {
-      this.props.fetchFail(error.message)
-    }
+  componentDidMount() {
+    this.props.giveMeData()
   }
 
   render() {
