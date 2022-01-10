@@ -2,16 +2,10 @@ import React from 'react'
 import logo from '../../assets/logo.svg'
 import { Menu, Dropdown, Input, Layout, Typography, Button } from 'antd'
 import { GlobalOutlined } from '@ant-design/icons'
-import {
-  useHistory,
-  useLocation,
-  useParams,
-  useRouteMatch,
-} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useSelector } from '../../redux/hooks'
 import { useDispatch } from 'react-redux'
 import {
-  LanguageActionTypes,
   addLanguageActionCreator,
   changeLanguageActionCreator,
 } from '../../redux/language/languageActions'
@@ -21,9 +15,6 @@ import styles from './Header.module.css'
 
 export const Header: React.FC = () => {
   const history = useHistory()
-  const location = useLocation()
-  const params = useParams()
-  const match = useRouteMatch()
   const language = useSelector((state) => state.language.language)
   const languageList = useSelector((state) => state.language.languageList)
   const dispatch = useDispatch()

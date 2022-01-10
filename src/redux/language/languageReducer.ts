@@ -24,6 +24,7 @@ const defaultState: LanguageState = {
   ],
 }
 
+// eslint-disable-next-line
 export default (state = defaultState, action: LanguageActionTypes) => {
   switch (action.type) {
     case CHANGE_LANGUAGE:

@@ -17,6 +17,7 @@ const defaultState: RecommendProductsState = {
   productList: [],
 }
 
+// eslint-disable-next-line
 export default (state = defaultState, action: RecommendProductAction) => {
   switch (action.type) {
     case FETCH_RECOMMEND_PRODUCTS_START:
