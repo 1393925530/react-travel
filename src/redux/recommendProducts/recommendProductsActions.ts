@@ -59,9 +59,7 @@ export const giveMeDataActionCreator =
   async (dispatch, getState) => {
     dispatch(fetchRecomendProductsStartActionCreator())
     try {
-      const { data } = await axios.get(
-        ` http://192.168.120.194:7300/mock/61d79dc72c7cf895bc0c49e1/productCollections`
-      )
+      const { data } = await axios.get(`/productCollections`)
       dispatch(fetchRecomendProductsSuccessActionCreator(data.data))
     } catch (error: any) {
       dispatch(fetchRecomendProductsFailActionCreator(error.message))
