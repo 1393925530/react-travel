@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { RouteComponentProps, useParams } from 'react-router-dom'
 import axios from 'axios'
-import { Col, Row, Spin, DatePicker } from 'antd'
-import { Header, Footer, ProductIntro } from '../../components'
+import {
+  Col,
+  Row,
+  Spin,
+  DatePicker,
+  Divider,
+  Typography,
+  Anchor,
+  Menu,
+} from 'antd'
+import { Header, Footer, ProductIntro, ProductComments } from '../../components'
+import { commentMockData } from './mockUp'
 
 import styles from './DetailPage.module.css'
 
@@ -79,15 +89,61 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
           </Row>
         </div>
         {/* 瞄点菜单 */}
-        <div className={styles['product-detail-anchor']}></div>
+        <Anchor className={styles['product-detail-anchor']}>
+          <Menu mode="horizontal">
+            <Menu.Item key="1">
+              <Anchor.Link href="#feature" title="产品特色"></Anchor.Link>
+            </Menu.Item>
+            <Menu.Item key="3">
+              <Anchor.Link href="#fees" title="费用"></Anchor.Link>
+            </Menu.Item>
+            <Menu.Item key="4">
+              <Anchor.Link href="#notes" title="预订须知"></Anchor.Link>
+            </Menu.Item>
+            <Menu.Item key="5">
+              <Anchor.Link href="#comments" title="用户评价"></Anchor.Link>
+            </Menu.Item>
+          </Menu>
+        </Anchor>
         {/* 产品特色 */}
-        <div id="feature" className={styles['product-detail-container']}></div>
+        <div id="feature" className={styles['product-detail-container']}>
+          <Divider orientation="center">
+            <Typography.Title level={3}>产品特色</Typography.Title>
+          </Divider>
+          <div
+            dangerouslySetInnerHTML={{ __html: product.features }}
+            style={{ margin: 50 }}
+          ></div>
+        </div>
         {/* 费用 */}
-        <div id="fees" className={styles['product-detail-container']}></div>
+        <div id="fees" className={styles['product-detail-container']}>
+          <Divider orientation="center">
+            <Typography.Title level={3}>费用</Typography.Title>
+          </Divider>
+          <div
+            dangerouslySetInnerHTML={{ __html: product.fees }}
+            style={{ margin: 50 }}
+          ></div>
+        </div>
         {/* 预定须知 */}
-        <div id="notes" className={styles['product-detail-container']}></div>
+        <div id="notes" className={styles['product-detail-container']}>
+          <Divider orientation="center">
+            <Typography.Title level={3}>预定须知</Typography.Title>
+          </Divider>
+          <div
+            dangerouslySetInnerHTML={{ __html: product.notes }}
+            style={{ margin: 50 }}
+          ></div>
+        </div>
         {/* 产品评价 */}
-        <div id="comments" className={styles['product-detail-container']}></div>
+        <div id="comments" className={styles['product-detail-container']}>
+          <Divider orientation="center">
+            <Typography.Title level={3}>用户评价</Typography.Title>
+          </Divider>
+          <div style={{ margin: 40 }}>
+            <ProductComments data={commentMockData} />
+          </div>
+        </div>
       </div>
       <Footer />
     </>
