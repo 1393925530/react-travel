@@ -13,6 +13,9 @@ import {
 } from 'antd'
 import { Header, Footer, ProductIntro, ProductComments } from '../../components'
 import { commentMockData } from './mockUp'
+import { productDetailSlice } from '../../redux/productDetail/slice'
+import { useSelector } from '../../redux/hooks'
+import { useDispatch } from 'react-redux'
 
 import styles from './DetailPage.module.css'
 
@@ -26,20 +29,23 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
   props
 ) => {
   const { touristRouteId } = useParams<MatchParams>()
-  const [loading, setLoading] = useState<boolean>(true)
-  const [product, setProduct] = useState<any>(null)
-  const [error, setError] = useState<string | null>(null)
+  // const [loading, setLoading] = useState<boolean>(true)
+  // const [product, setProduct] = useState<any>(null)
+  // const [error, setError] = useState<string | null>(null)
+  const loading = useSelector((state) => state.productDetail.loading)
+  const error = useSelector((state) => state.productDetail.error)
+  const product = useSelector((state) => state.productDetail.data)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true)
+      dispatch(productDetailSlice.actions.fetchStart())
       try {
         const { data } = await axios.get(`/touristRoutes/${touristRouteId}`)
-        setProduct(data.data)
-        setLoading(false)
+        dispatch(productDetailSlice.actions.fetchSuccess(data.data))
       } catch (error: any) {
-        setError(error.message)
-        setLoading(false)
+        dispatch(productDetailSlice.actions.fetchFail(error.message))
       }
     }
     fetchData()
