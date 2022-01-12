@@ -5,11 +5,13 @@ import languageReducer from './language/languageReducer'
 import recommendProductsReducer from './recommendProducts/recommendProductsReducer'
 import { actionLog } from './middleWares/actionLog'
 import { productDetailSlice } from './productDetail/slice'
+import { productSearchSlice } from './productSearch/slice'
 
 const rootReducer = combineReducers({
   language: languageReducer,
   recommendProducts: recommendProductsReducer,
   productDetail: productDetailSlice.reducer,
+  productSearch: productSearchSlice.reducer,
 })
 
 // const store = createStore(rootReducer, applyMiddleware(thunk, actionLog))

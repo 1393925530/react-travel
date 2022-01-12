@@ -72,6 +72,9 @@ export const Header: React.FC = () => {
         <Input.Search
           placeholder="请输入旅游目的地、主题或者关键字"
           className={styles['search-input']}
+          onSearch={(keywords) => {
+            history.push(`/search/${keywords}`)
+          }}
         ></Input.Search>
       </Layout.Header>
       <Menu mode="horizontal" className={styles['main-menu']}>
