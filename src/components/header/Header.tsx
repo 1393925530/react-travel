@@ -53,10 +53,10 @@ export const Header: React.FC = () => {
             {language === 'zh' ? '中文' : 'English'}
           </Dropdown.Button>
           <Button.Group className={styles['button-group']}>
-            <Button onClick={() => history.push('register')}>
+            <Button onClick={() => history.push('/register')}>
               {t('header.register')}
             </Button>
-            <Button onClick={() => history.push('signIn')}>
+            <Button onClick={() => history.push('/signIn')}>
               {t('header.signin')}
             </Button>
           </Button.Group>
@@ -70,7 +70,7 @@ export const Header: React.FC = () => {
           </Typography.Title>
         </span>
         <Input.Search
-          placeholder="请输入旅游目的地、主题或者关键字"
+          placeholder="请输入旅游目的地、主题或者关 键字"
           className={styles['search-input']}
           onSearch={(keywords) => {
             history.push(`/search/${keywords}`)

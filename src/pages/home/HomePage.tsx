@@ -12,6 +12,7 @@ import { withTranslation, WithTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { giveMeDataActionCreator } from '../../redux/recommendProducts/recommendProductsActions'
+import { MainLayout } from '../../layouts/mainLayout'
 
 import sideImage from '../../assets/images/sider_2019_12-09.png'
 import sideImage2 from '../../assets/images/sider_2019_02-04.png'
@@ -67,8 +68,7 @@ class HomePageComponent extends React.Component<PropsType> {
     }
 
     return (
-      <div className={styles.App}>
-        <Header />
+      <MainLayout>
         {/* 页面内容content */}
         <div className={styles['page-content']}>
           <Row style={{ marginTop: 20 }}>
@@ -108,8 +108,7 @@ class HomePageComponent extends React.Component<PropsType> {
           ></ProductCollection>
           <CollaborateCompany />
         </div>
-        <Footer />
-      </div>
+      </MainLayout>
     )
   }
 }
