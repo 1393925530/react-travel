@@ -41,7 +41,7 @@ type PropsType = RouteComponentProps &
 
 class HeaderComponent extends React.Component<PropsType> {
   handleStoreChange = () => {
-    const storeState = store.getState()
+    const storeState = store.store.getState()
     this.setState({
       language: storeState.language.language,
       languageList: storeState.language.languageList,
@@ -71,11 +71,7 @@ class HeaderComponent extends React.Component<PropsType> {
               overlay={
                 <Menu onClick={this.menuClickHandler}>
                   {this.props.languageList.map((l) => {
-                    return (
-                      <Menu.Item key={`${l.code}`}>
-                        {l.name}
-                      </Menu.Item>
-                    )
+                    return <Menu.Item key={`${l.code}`}>{l.name}</Menu.Item>
                   })}
                   <Menu.Item key={'new'}>
                     {t('header.add_new_language')}
