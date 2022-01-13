@@ -1,10 +1,23 @@
 import { Form, Input, Button, Checkbox } from 'antd'
+import axios from 'axios'
+import { useHistory } from 'react-router'
 
 import styles from './RegisterForm.module.css'
 
 export const RegisterForm = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values)
+  const history = useHistory()
+
+  const onFinish = async (values: any) => {
+    try {
+      await axios.post('/register', {
+        email: values.username,
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+      })
+      history.push('/signIn')
+    } catch (error) {
+      alert('注册失败')
+    }
   }
 
   const onFinishFailed = (errorInfo: any) => {
