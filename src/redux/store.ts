@@ -1,5 +1,3 @@
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import languageReducer from './language/languageReducer'
 import recommendProductsReducer from './recommendProducts/recommendProductsReducer'
