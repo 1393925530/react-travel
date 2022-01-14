@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import {
   HomePage,
   SignInPage,
@@ -7,11 +7,25 @@ import {
   DetailPage,
   PageNotFound,
   SearchPage,
+  ShoppingCartPage,
 } from './pages'
+import { useSelector } from './redux/hooks'
 
 import styles from './App.module.css'
 
+const PrivateRoute = ({ component, isAuthenticated, ...rest }) => {
+  const routeComponent = (props) => {
+    return isAuthenticated ? (
+      React.createElement(component, props)
+    ) : (
+      <Redirect to={{ pathname: '/signIn' }} />
+    )
+  }
+  return <Route render={routeComponent} {...rest} />
+}
+
 const App = () => {
+  const jwt = useSelector((S) => S.user.token)
   return (
     <div className={styles.App}>
       <BrowserRouter>
@@ -21,6 +35,11 @@ const App = () => {
           <Route path="/register" component={RegisterPage} />
           <Route path="/detail/:touristRouteId" component={DetailPage} />
           <Route path="/search/:keywords?" component={SearchPage} />
+          <PrivateRoute
+            isAuthenticated={jwt !== null}
+            path="/shoppingCart"
+            component={ShoppingCartPage}
+          />
           <Route component={PageNotFound} />
         </Switch>
       </BrowserRouter>
