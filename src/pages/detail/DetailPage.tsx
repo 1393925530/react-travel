@@ -9,13 +9,16 @@ import {
   Typography,
   Anchor,
   Menu,
+  Button,
 } from 'antd'
+import { ShoppingCartOutlined } from '@ant-design/icons'
 import { useSelector } from '../../redux/hooks'
 import { useDispatch } from 'react-redux'
 import { ProductIntro, ProductComments } from '../../components'
 import { MainLayout } from '../../layouts/mainLayout'
 import { commentMockData } from './mockUp'
 import { getProductDetail } from '../../redux/productDetail/slice'
+import { addShoppingCartItem } from '../../redux/shoppingCart/slice'
 
 import styles from './DetailPage.module.css'
 
@@ -37,6 +40,9 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
   const product = useSelector((state) => state.productDetail.data)
 
   const dispatch = useDispatch()
+
+  const jwt = useSelector((s) => s.user.token) as string
+  const shoppingCartLoaing = useSelector((s) => s.shoppingCart.loading)
 
   useEffect(() => {
     dispatch(getProductDetail(touristRouteId))
@@ -79,6 +85,20 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
             />
           </Col>
           <Col span={11}>
+            <Button
+              style={{ marginTop: 50, marginBottom: 30, display: 'block' }}
+              type="primary"
+              danger
+              loading={shoppingCartLoaing}
+              onClick={() => {
+                dispatch(
+                  addShoppingCartItem({ jwt, touristRouteId: product.od })
+                )
+              }}
+            >
+              <ShoppingCartOutlined />
+              放入购物车
+            </Button>
             <RangePicker open style={{ marginTop: 20 }} />
           </Col>
         </Row>
