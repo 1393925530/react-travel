@@ -9,6 +9,7 @@ import {
   PageNotFound,
   SearchPage,
   ShoppingCartPage,
+  PlaceOrderPage,
 } from './pages'
 import { useSelector } from './redux/hooks'
 import { getShoppingCart } from './redux/shoppingCart/slice'
@@ -49,6 +50,11 @@ const App = () => {
             isAuthenticated={jwt !== null}
             path="/shoppingCart"
             component={ShoppingCartPage}
+          />
+          <PrivateRoute
+            isAuthenticated={jwt !== null}
+            path="/placeOrder"
+            component={PlaceOrderPage}
           />
           <Route component={PageNotFound} />
         </Switch>
